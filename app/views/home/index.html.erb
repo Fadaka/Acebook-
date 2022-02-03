@@ -1,0 +1,66 @@
+<div class="hero is-fullheight"> 
+  
+  <div class="hero-body">
+    <div class='container.is-max-desktop columns is-vcentered is-centered p-6 mx-auto'>
+
+      <div class="column is-5-desktop has-text-centered-mobile" id="home-welcome">
+        <div class="is-size-1 has-text-link has-text-weight-bold">
+          <h1>AceBook</h1>
+        </div>
+        <div class="is-size-4 has-text-weight-semibold">
+          <p>Acebook helps you connect and share with the people in your life.</p>
+        </div>
+      </div>
+
+      <div class="column is-4-desktop p-4 box" id="home-login">
+
+        <%= form_for(:session, url: login_path) do |f| %>
+        <div class="field mt-1">
+          <div class="control">
+            <%= f.email_field :email, class: 'input', placeholder: 'Email address'%>
+          </div>
+          
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <%= f.password_field :password, class: 'input is-success', placeholder: 'Password'%>
+          </div>
+         
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <%= f.submit "Log In", class: 'button is-link is-fullwidth has-text-weight-bold'%>
+
+          </div>
+        </div>
+
+
+        <hr />
+
+      <% end %>
+
+        <div class="field mb-2">
+          <div class="control has-text-centered">
+            <a href="/users/new"><button class="button is-success p-5 has-text-weight-bold">Create New Account</button></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="hero-foot has-background-white p-6">
+    <div style='border-bottom: 1px solid rgb(221, 223, 226); font-size: 1px; height: 8px; margin-bottom: 8px; font-family: system-ui, -apple-system, "system-ui", ".SFNSText-Regular", sans-serif; color: rgb(115, 115, 115); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><br></div>
+    <div class="mvl copyright" style='margin-top: 20px; margin-bottom: 20px; font-size: 11px; font-family: system-ui, -apple-system, "system-ui", ".SFNSText-Regular", sans-serif; color: rgb(115, 115, 115); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'>
+      <div style="font-family: inherit;">
+        <span style="font-family: inherit;">Team On The Rails &copy; 2022</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+  

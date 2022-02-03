@@ -1,0 +1,64 @@
+<% @post = Post.find(comment.post_id) %>
+<% @commenter = User.find(comment.user_id) %>
+
+<div class="card box has-background-white-ter pb-1" id="comment-<%=comment.id%>">
+
+  <div class="card-content pb-1">
+
+    <div class="media">
+
+      <div class="media-left">
+        <a href=<%="#{user_path(@commenter)}"%>>
+          <figure class="circular--landscape-comment">
+            <%= image_tag(comment.user.profile_picture) %>
+          </figure>
+        </a>
+      </div>
+
+      <div class="media-content">
+        <a href=<%="#{user_path(@commenter)}"%>>
+          <p class="title is-6"><%= @commenter.name %></p>
+        </a>
+      </div>
+      <!-- Add as friend ------------------------------------------------ -->
+      <% unless @commenter == current_user %> 
+      <% if can_add_as_friend(current_user.id, @commenter.id) && @commenter != current_user %>
+        <%= form_with model: current_user.friendships.build, remote: true do |f| %>
+          <div><%= hidden_field_tag :friend_id, @commenter.id %></div>
+          
+            <button type="submit" style="background: none; border: none;" id="add-friend-<%=@commenter.id%>">
+              <%= link_to '<span class="icon"><i class="fas fa-user-plus fa-lg"></i></span>'.html_safe, "" %> 
+            </button>
+          <% end %>
+          <% else %>
+          <span class="icon is-medium has-text-info">
+            <i class="fas fa-user-check fa-lg"></i>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+
+
+
+    <div class="content comment-message">
+      <p class="has-text-dark"><%= comment.message %></p>
+      <time class="has-text-grey"><%=time_ago_in_words(comment.updated_at)%> ago</time>
+    </div>
+
+    <footer class="card-footer">
+      <% if current_user == @commenter %>
+        <% if editable?(comment) %>
+          <%= link_to '<i class="fas fa-edit"></i>'.html_safe, post_path(@post) + "/comments/#{comment.id}/edit",
+          class: "card-footer-item editbutton" %>
+        <% end %>
+        <%= link_to '<i class="fas fa-trash-alt" aria-hidden="true"></i>'.html_safe, post_path(@post) + "/comments/#{comment.id}",
+        class: "card-footer-item deleter",
+        remote: true,
+        method: :delete
+        %>
+      <% end %>
+    </footer>
+
+  </div>
+
+</div>

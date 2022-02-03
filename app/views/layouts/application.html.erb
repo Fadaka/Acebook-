@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <title>Acebook</title>
+    <%= csrf_meta_tags %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" integrity="sha512-IgmDkwzs96t4SrChW29No3NXBIBv8baW490zk5aXvhCD8vuZM3yUSkbyTBcXohkySecyzIrUwiF/qV0cuPcL3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+
+    <style>
+     html {scroll-behavior: smooth !important;}
+     :target:before {
+      content: "";
+      display: block;
+      height: 100px;
+      margin: -100px 0 0;
+    }
+     body {height: 100% !important;}
+     #posts {width: 40rem !important; max-height: 100% !important; overflow: hidden !important;}
+     #posts .card {width: 100% !important; max-height: 100rem !important; overflow: hidden !important;}
+     .comment-box {max-height: 40rem !important; overflow-y: scroll !important;}
+
+     #sign-up {width: 30rem !important; max-height: 100% !important;}
+     .hero-foot {padding: 2rem 12rem 5rem 12rem !important;}
+     .box {box-shadow: 3px 5px 7px 3px #ccc;}
+
+      .circular--landscape-nav {position: relative; width: 32px; height: 32px; overflow: hidden; border-radius: 50%; } 
+      .circular--landscape-nav img {width: auto; height: 100%; max-height: 100%}
+
+      .circular--landscape-post { display: inline-block; position: relative; width: 64px; height: 64px; overflow: hidden; border-radius: 50%; } 
+      .circular--landscape-post img {width: auto; height: 100%}
+
+      .circular--landscape-comment { display: inline-block; position: relative; width: 32px; height: 32px; overflow: hidden; border-radius: 50%; } 
+      .circular--landscape-comment img {width: auto; height: 100%}
+
+      .circular--landscape-profile { display: inline-block; position: relative; width: 128px; height: 128px; overflow: hidden; border-radius: 50%} 
+      .circular--landscape-profile img {width: auto; height: 100%}
+
+      .circular--landscape-profile-editable { display: inline-block; position: relative; width: 128px; height: 128px; overflow: hidden; border-radius: 50%; margin-left: 16px} 
+      .circular--landscape-profile-editable img {width: auto; height: 100%}
+    </style>
+
+    <%= favicon_link_tag asset_path('favicon.ico') %>
+
+   
+  </head>
+  <% unless current_page?(new_user_path) %>
+  <nav class="navbar has-background-info mb-5" role="navigation" aria-label="main navigation">
+
+    <div class="navbar-brand p-3">
+      
+      <a href="/"><i class="fab fa-artstation fa-3x has-text-white ml-6"></i></a> 
+      
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <% if logged_in?%>
+    <div id="navbarBasicExample" class="navbar-menu">
+      <% @current_user = current_user %>
+      <div class="navbar-end">
+        <div class="navbar-item">
+
+          <%= link_to "#{@current_user.name}", user_path(@current_user), class: "has-text-white is-size-4 mr-2 profile-link" %>
+          
+        
+            <a href="/users/<%= @current_user.id %>">
+              <figure class="circular--landscape-nav">
+                <%= image_tag(@current_user.profile_picture) %>
+              </figure>
+            </a>
+       
+    <% end %>
+          <%= link_to "Log out", logout_path, method: :delete, class: 'button has-text-info has-text-bold is-white px-2 mx-2' %>
+       
+        </div>
+      </div>
+    </div>
+
+</nav>
+<% end %>
+
+  <body class="has-background-light">
+
+    <div>
+      <% flash.each do |key, value| %>
+        <div class="is-<%= key %> notification is-light has-text-bold alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+    </div>
+    
+    <%= yield %>
+  </body>
+</html>

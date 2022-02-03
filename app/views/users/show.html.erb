@@ -1,0 +1,51 @@
+<div class="container has-text-centered" >
+  <div>
+    <% if @user == current_user %>
+      <% plus_icon = link_to '', edit_user_path, class: "fas fa-plus" %>
+      <% css_class = 'circular--landscape-profile-editable' %>
+    <% else %>
+      <% plus_icon = '' %>
+      <% css_class = 'circular--landscape-profile' %>
+    <% end %>
+    <figure class=<%= css_class %> >
+      <%= image_tag(@user.profile_picture) %>
+    </figure>
+    <%= plus_icon %>
+  </div>
+  <div class="media-content">
+    <p class="title is-4"><%= @user.name %></p>
+  </div>
+</div>
+
+<div class="columns is-centered py-2 my-2" id="friends">
+  <div class="column is-half">
+   <div class="card py-2 px-2">
+    <h2 class="my-1">
+      <strong>Friends with</strong>
+    </h2>
+    <div class="columns px-2 py-2">
+      <% my_friends(@user.id)[0..5].shuffle.each do |friend| %>
+        <%@friend = User.find(friend.friend_id)%>
+        <div class="column is-align-content-center">
+        <figure class="circular--landscape-post">
+          <%= image_tag(@friend.profile_picture) %>
+        </figure>
+          <p> <%= link_to @friend.name, user_path(@friend) %> </p>
+        </div>
+      <% end %>
+    </div>
+    </div>
+  </div>
+</div>
+  
+
+<div class="container" id="posts" >
+  <% if @user == current_user %>
+    <%= render partial: 'posts/new' %>
+  <% end %>
+
+  <div id="posts-top" class="pb-1" ></div>
+
+  <%= render @user.posts.newest_first %>
+    <div id="post-end"></div>
+</div>

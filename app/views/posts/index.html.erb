@@ -1,0 +1,22 @@
+<div class='container' id="posts">
+
+  <!-- Writing new Posts ------------------------------------------------------------------------------------------------------------------------------------------- -->
+  <%= render 'new' %>
+  <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+  <div id="feed-buttons" class="columns is-centered">
+    <%= link_to '<button class="button is-info mx-4">Friends posts</button>'.html_safe, 'friends_posts', remote: true %>
+    <%= link_to '<button class="button is-info mx-4">All posts</button>'.html_safe, posts_path, remote: true %>
+  </div>
+
+  <div id="posts-top" class="pb-1"></div>
+
+      <!-- See _post.html partial for viewing posts -->
+    <div id="all-posts">
+      <%= render @posts %>
+    </div>
+  <div id="post-end"></div>
+</div>
+
+<script src="/assets/index.js"></script>
+
